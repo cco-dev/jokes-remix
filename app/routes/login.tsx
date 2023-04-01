@@ -1,6 +1,7 @@
 import type {
   ActionArgs,
   LinksFunction,
+  MetaFunction,
 } from "@remix-run/node";
 import {
   Link,
@@ -16,6 +17,12 @@ import {
   login,
   register,
 } from "~/utils/session.server";
+
+export const meta: MetaFunction = () => ({
+  description:
+    "Login to submit your own jokes to Remix Jokes!",
+  title: "Remix Jokes | Login",
+});
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesUrl },
@@ -47,7 +54,7 @@ export const action = async ({ request }: ActionArgs) => {
   const username = form.get("username");
   const password = form.get("password");
   const redirectTo = validateUrl(
-    form.get("redirectTo") as string || "/jokes"
+    form.get("redirectTo") as string|| "/jokes"
   );
   if (
     typeof loginType !== "string" ||
